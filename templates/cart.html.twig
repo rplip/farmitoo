@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <div class="card">
+            <div class="row">
+                <div class="col-md-8 cart">
+                    <div class="title">
+                        <div class="row">
+                            <div class="col">
+                                <h4><b>Panier</b></h4>
+                            </div>
+                            <div class="col align-self-center text-right sub">{{ quantity }} ARTICLES</div>
+                        </div>
+                    </div>
+                    {% for item in order.items %}
+                        <div class="row border-top">
+                            <div class="row main align-items-center">
+                                <div class="col-2"><img class="img-fluid" src="https://picsum.photos/56/56"></div>
+                                <div class="col">
+                                    <div class="row">{{item.product.title}}</div>
+                                    <div class="row sub">{{item.product.brand.name}}</div>
+                                </div>
+                                <div class="col"> <a href="#">-</a><a href="#" class="border">{{item.quantity}}</a><a href="#">+</a> </div>
+                                <div class="col">{{(item.product.price/100)*(item.quantity)}}€ HT <span class="close">&#10005;</span></div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                    {% if order.promotionReduction > 0 %}
+                        <div class="promo text-right"><span class="sub"> Bonne nouvelle!! Vous bénéficiez de {{order.promotionReduction}}€ de réduction</span></div>
+                    {% endif %}
+                    <div class="retour"><a href="#">&leftarrow;<span class="sub"> Retour au magasin</span></a></div>
+                </div>
+                <div class="col-md-4 summary">
+                    <div>
+                        <h5><b>Résumé de la commande</b></h5>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-6 pl-0">{{ quantity }} ARTICLES</div>
+                        <div class="col-6 text-right">{{ order.price/100 }}€</div>
+                        <div class="col-6 pl-0 pt-2">FRAIS DE PORT</div>
+                        <div class="col-6 pt-2 text-right">OFFERTS</div>
+                    </div>
+                    <form>
+                        <p>CODE DE REDUCTION</p> <input id="code" placeholder="Entrez votre code">
+                    </form>
+                    <div class="row" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
+                        <div class="col-6 sub">TOTAL HT</div>
+                        <div class="col-6 sub text-right">{{ order.price/100 }}€</div>
+                        <div class="col-6 sub">TVA 20%</div>
+                        <div class="col-6 sub text-right"> {{(order.price/100)*0.2}}€</div>
+                        {% if order.promotionReduction > 0 %}
+                            <div class="col-6 sub">Réduction</div>
+                            <div class="col-6 sub text-right">-{{order.promotionReduction}}€</div>
+                        {% endif %}
+                        <div class="col-6">TOTAL TTC</div>
+                        <div class="col-6 text-right">{{ (order.price/100)+((order.price/100)*0.2)-order.promotionReduction }}€</div>
+                    </div> <button class="btn">COMMANDER</button>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
