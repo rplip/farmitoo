@@ -60,30 +60,32 @@ Voici celles de notre cas :
 
 # Résultats
 
-* 1er test
+* **1er test**
 
-Le lancement des test techniques fonctionnent, pour ça j'ai créer un controller pour calculer le prix des produits PriceCalculator. Controller qui est appelé lors de l'ajout de produit dans la commande via OrderUpdater
+Le lancement des test techniques fonctionne, pour ça j'ai créé un controller pour calculer le prix des produits (PriceCalculator),
 
-* 2eme test
+ce controller est appelé lors de l'ajout de produit dans la commande via OrderUpdater
+
+* **2eme test**
 
 J'ai choisi de mettre en place un panier classique avec l'aide de Bootstrap.
 
 Il se compose de deux parties, celle de gauche est un récapitulatif des produits ajoutés au panier avec nom du produit, marque, addition ou diminution du nombre d'éléments de chaque produits ainsi que le prix hors taxe et la suppression du produit.
 S'ajoute une phrase en dessous, en cas d'eventuelle réduction ou promotion.
 
-Pour la partie de droite, le résumé de la commande, j'ai choisi un jaune-orangé pour le coté confiance, chaleureux et c'est une couleur qui match bien pour les produits techs et l'agriculture. Ce résumé contient le nombre d'articles, les eventuels frais de port, la possibilité d'ajouter un code de réduction, un récap des sommes en jeux et un bouton commander. Le but étant d'être le plus clair possible et que le client se dirige le plus naturellement possible dans le tunnel de paiment. Avoir un max d'informations sans gênes visuelles afin de permettre un clic sur commander le plus simple possible.
+Pour la partie de droite, le résumé de la commande, j'ai choisi un jaune-orangé pour le coté confiance, chaleureux et c'est une couleur qui match bien avec les produits techs et l'agriculture. Ce résumé contient le nombre d'articles, les eventuels frais de port, la possibilité d'ajouter un code de réduction, un récap des sommes en jeux et un bouton commander. Le but étant d'être le plus clair possible et que le client se dirige le plus naturellement possible dans le tunnel de paiement. Avoir un maximum d'informations sans gênes visuelles afin de permettre un clic sur commander le plus simple possible.
 
-* 3eme test
+* **3eme test**
 
-Pour la mise en place des promotions,  j'ai choisis de créer un controller SalesCalculator, sur le modèle des frais de port et du calcul de la tva. Le but étant de passé par ce calculateur après l'ajout des produits dans la commande afin de vérifier si une promotion s'applique.
+Pour la mise en place des promotions,  j'ai choisi de créer un controller SalesCalculator, sur le modèle des frais de port et du calcul de la tva. Le but étant de passer par ce calculateur après l'ajout des produits dans la commande afin de vérifier si une promotion s'applique.
 
-Les promotions sont ajoutées dans la commande (order) grâce au controller PromoUpdater, dans un tableau et sont classés par ordre de priorité. La première dans le tableau est analysée, si elle est effective, les autres promotions ne sont pas passées en revues. En revanche, si elle ne s'applique pas, on passe à la promotion suivante, etc..
+Les promotions sont ajoutées dans la commande (order) grâce au controller PromoUpdater, stockées dans un tableau et sont classées par ordre de priorité. La première dans le tableau est analysée, si elle est effective, les autres promotions ne sont pas passées en revue. En revanche, si elle ne s'applique pas, on passe à la promotion suivante, etc..
 
 J'ai implémenté de nouvelles propriétés :
 
-A l'entité order afin d'accueillir le tableau des promotions, ainsi qu'une paire de getter/setter
+A l'entité **Order** afin d'accueillir le tableau des promotions, ainsi qu'une paire de getter/setter
 
-A l'entité' Promotion afin de créer un objet pertinent de ce type :
+A l'entité **Promotion** afin de créer un objet pertinent de ce type :
 * `new Promotion('01 august 2021', '01 september 2021', 200, 0, 1200);`
 * `new Promotion('', '', 0, 0, 0);`
 
