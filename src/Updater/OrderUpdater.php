@@ -44,19 +44,14 @@ class OrderUpdater
         $item = new Item($product, $quantity);
         $order->addItem($item);
 
-        $this->priceCalculator = new PriceCalculator();
-        $this->salesCalculator = new SalesCalculator();
+        $priceCalculator = new PriceCalculator();
 
-        $orderPrice = $this->priceCalculator->calculate($order);
+        $orderPrice = $priceCalculator->calculate($order);
         $shippingFees = $this->shippingCalculator->calculate($order);
         $vatPrice = $this->vatCalculator->calculate($order);
 
         $order->setPrice($orderPrice);
         $order->setShippingFees($shippingFees);
         $order->setVatPrice($vatPrice);
-
-        $sales = $this->salesCalculator->calculate($order);
-
-        $order->setPromotionReduction($sales);
     }
 }

@@ -10,9 +10,11 @@ use App\Entity\Brand;
 use App\Entity\Item;
 use App\Entity\Order;
 use App\Entity\Product;
+use App\Entity\Promotion;
 use App\Entity\ShippingCalculationByOrder;
 use App\Entity\ShippingCalculationBySlice;
 use App\Updater\OrderUpdater;
+use App\Updater\PromoUpdater;
 use PHPUnit\Framework\TestCase;
 
 class OrderUpdaterTest extends TestCase
@@ -49,12 +51,18 @@ class OrderUpdaterTest extends TestCase
 
         $this->orderUpdater->addProduct($order, $product3, 1);
 
+        $promotion1= new Promotion('01 august 2021', '01 september 2021', 200, 60, 1200);
+        $promotion2= new Promotion('', '', 0, 10, 300);
+
+        $promoUpdater = new PromoUpdater;
+        $promoUpdater->addPromotion($order, $promotion1);
+        $promoUpdater->addPromotion($order, $promotion2);
+
         $this->assertCount(3, $order->getItems());
         $this->assertSame(111000, $order->getPrice());
-//        $this->assertEquals(1000, $order->getPromotionReduction());
         $this->assertSame(1600, $order->getShippingFees());
         $this->assertSame(21100, $order->getVatPrice());
-        $this->assertSame(12, $order->getPromotionReduction());
+        $this->assertSame(3, $order->getPromotionReduction());
     }
 
     protected function setUp(): void

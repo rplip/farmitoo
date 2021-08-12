@@ -12,6 +12,11 @@ class Order
     protected array $items;
 
     /**
+     * @var array
+     */
+    protected array $promotions;
+
+    /**
      * @var int
      */
     protected int $price = 0;
@@ -55,6 +60,22 @@ class Order
         }
 
         return $byBrands;
+    }
+
+    /**
+     * @param Promotion $promotion
+     */
+    public function addPromotion(Promotion $promotion): void
+    {
+        $this->promotions[] = $promotion;
+    }
+
+    /**
+     * @return Promotion[]
+     */
+    public function getPromotions(): array
+    {
+        return $this->promotions;
     }
 
     /**

@@ -16,9 +16,7 @@ class SalesCalculator
      */
     public function calculate(Order $order): int
     {
-        $promotions = [];
-        $promotions[]= new Promotion('01 august 2021', '01 september 2021', 200, 0, 1200); // réduction de 12€, applicable du 01 aout au 01 septembre 2021 pour une commande de 200€ minimum
-        $promotions[]= new Promotion('', '', 0, 10, 300); //réduction de 3€, applicable dès 10 produits achetés sur le site à n'importe quel moment et sans montant minimum
+        $promotions = $order->getPromotions(); // On recupère le tableau des promotions
 
         $sales = $order->getPromotionReduction();
 

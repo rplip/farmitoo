@@ -75,21 +75,23 @@ Pour la partie de droite, le résumé de la commande, j'ai choisi un jaune-orang
 
 * 3eme test
 
-Pour la mise en place des promotions,  j'ai choisis de créer un controller SalesCalculator, sur le modèle des frais de port et du calcul de la tva. Le but étant de passé par ce calculateur à l'ajout de chaque nouveau produit dans la commande afin de vérifier si une promotion s'applique.
+Pour la mise en place des promotions,  j'ai choisis de créer un controller SalesCalculator, sur le modèle des frais de port et du calcul de la tva. Le but étant de passé par ce calculateur après l'ajout des produits dans la commande afin de vérifier si une promotion s'applique.
 
-Les promotions sont directement dans le calculateur, dans un tableau et sont classés par ordre de priorité. La première dans le tableau est analysée, si elle est effective, les autres promotions ne sont pas passées en revues. En revanche, si elle ne s'applique pas, on passe à la promotion suivante, etc..
+Les promotions sont ajoutées dans la commande (order) grâce au controller PromoUpdater, dans un tableau et sont classés par ordre de priorité. La première dans le tableau est analysée, si elle est effective, les autres promotions ne sont pas passées en revues. En revanche, si elle ne s'applique pas, on passe à la promotion suivante, etc..
 
-J'ai implémeté de nouvelles propriétés à la classe Promotion afin de créer un objet pertinent de ce type
+J'ai implémenté de nouvelles propriétés :
 
-`new Promotion('01 august 2021', '01 september 2021', 200, 0, 1200);`
+A l'entité order afin d'accueillir le tableau des promotions, ainsi qu'une paire de getter/setter
 
-`new Promotion('', '', 0, 0, 0);`
+A l'entité' Promotion afin de créer un objet pertinent de ce type :
+* `new Promotion('01 august 2021', '01 september 2021', 200, 0, 1200);`
+* `new Promotion('', '', 0, 0, 0);`
 
-* Le premier paramètre est la date de début de la promotion *(qui peut etre laissé vide si pas de début)*
-* Le second paramètre est la date de fin de promotion *(qui peut etre laissé vide si c'est une promotion qui fonctionne en permanence)*
-* Le 3ème paramètre est le montant minimum d'achat pour que la promotion se declenche *(peut-être laissé à 0 si la promotion ne prend pas compte ce paramètre)*
-* Le 4ème paramètre est le nombre minimum de d'articles présent dans la commande pour que la promotion se déclenche *(peut-être laissé à 0 si la promotion ne prend pas compte ce paramètre)*
-* Le 5ème paramètre est le montant de la réduction (e.g. 1000 pour 10€) *(peut-être laissé à 0 si la promotion ne sert à rien, parce que 0€ de promo c'est pas hyper utile, enfin bon c'est possible)*
+    * Le premier paramètre est la date de début de la promotion *(qui peut etre laissé vide si pas de début)*
+    * Le second paramètre est la date de fin de promotion *(qui peut etre laissé vide si c'est une promotion qui fonctionne en permanence)*
+    * Le 3ème paramètre est le montant minimum d'achat pour que la promotion se declenche *(peut-être laissé à 0 si la promotion ne prend pas compte ce paramètre)*
+    * Le 4ème paramètre est le nombre minimum de d'articles présent dans la commande pour que la promotion se déclenche *(peut-être laissé à 0 si la promotion ne prend pas compte ce paramètre)*
+    * Le 5ème paramètre est le montant de la réduction (e.g. 1000 pour 10€) *(peut-être laissé à 0 si la promotion ne sert à rien, parce que 0€ de promo c'est pas hyper utile, enfin bon c'est possible)*
 
 On vérifie ensuite que ces conditions sont valides avant d'appliquer la promotion, puis de l'afficher dans le panier.
 
